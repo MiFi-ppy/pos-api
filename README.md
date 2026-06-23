@@ -31,6 +31,15 @@ import okhttp3.RequestBody.Companion.toRequestBody
 ```
 
 ---
+## Base URL (legacy)
+
+Legacy versions (3.x) have API available at:
+
+```
+https://<cloud>/<client>/admin/api/v1/<endpoint>
+```
+
+For example, client with web admin on address `https://4.ppy.sk/test/admin/` will have API at `https://4.ppy.sk/test/admin/api/v1/<endpoint>`
 
 ## Base URL (v4.0.0+)
 
@@ -40,7 +49,7 @@ From version 4.0.0, the full URL for each endpoint is:
 https://api.papayapos.sk/external/<client-id>/api/v1/<endpoint>
 ```
 
-`<client-id>` is the UUID assigned to your Papaya POS account. Version 4.0.0 also changed the auth header from `Authorization` to `Api-token`.
+`<client-id>` is the UUID assigned to your Papaya POS account. (This is displayed in the webadmin integration settings page)
 
 For example, a client with ID `0f67fe5c-0000-0000-0000-e3a937ed1e2d` calling the areas endpoint:
 
@@ -48,7 +57,7 @@ For example, a client with ID `0f67fe5c-0000-0000-0000-e3a937ed1e2d` calling the
 
 ```bash
 http POST https://api.papayapos.sk/external/0f67fe5c-0000-0000-0000-e3a937ed1e2d/api/v1/areas \
-  Api-token:"Bearer $TOKEN" \
+  Authorization:"Bearer $TOKEN" \
   action=GET \
   data:='{}'
 ```
@@ -66,7 +75,7 @@ val body = """
 val request = Request.Builder()
     .url("https://api.papayapos.sk/external/0f67fe5c-0000-0000-0000-e3a937ed1e2d/api/v1/areas")
     .post(body.toRequestBody("application/json".toMediaType()))
-    .header("Api-token", "Bearer $TOKEN")
+    .header("Authorization", "Bearer $TOKEN")
     .build()
 ```
 
